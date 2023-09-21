@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('description');
             $table->float('price');
             $table->enum('status', ['READY', 'UNREADY']);
-            $table->integer('type_id');
             $table->integer('qty');
             $table->timestamps();
             $table->softDeletes();

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->float('change_received');
             $table->enum('transaction_type', ['CASH', 'KREDIT']);
             $table->timestamps();
+            $table->softDeletes();
+            $table->index('code');
         });
     }
 
