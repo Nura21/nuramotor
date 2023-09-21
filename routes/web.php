@@ -30,7 +30,6 @@ Route::resource('user-details', UserDetailController::class);
 
 //Products
 Route::resource('products', ProductController::class);
-Route::resource('colors', ColorController::class);
 Route::resource('types', TypeController::class);
 
 //Transactions

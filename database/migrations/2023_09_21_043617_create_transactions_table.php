@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
+            $table->float('total_price');
+            $table->float('received');
+            $table->float('change_received');
+            $table->enum('transaction_type', ['CASH', 'KREDIT']);
             $table->timestamps();
         });
     }

@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum TransactionTypeEnum:string
 {
-	case CASH = 1;
-	case KREDIT = 0;
+	case CASH = 'CASH';
+	case KREDIT = 'KREDIT';
 
     public static function toArray(): array
     {

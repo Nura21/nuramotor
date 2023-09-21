@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum StatusEnum:string
 {
-	case READY = 1;
-	case UNREADY = 0;
+	case READY = 'READY';
+	case UNREADY = 'UNREADY';
 
     public static function toArray(): array
     {

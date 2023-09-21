@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->string('ktp');
+            $table->string('kk');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
