@@ -64,3 +64,26 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Starter
+0. make sure you use php8.2 for laravel 10
+1. install git
+2. open cmd, then run git clone https://github.com/Nura21/nuramotor.git
+3. open the folder with vscode
+4. run cp .env.example .env => configure app
+5. open .env and set this
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=yourport {change this}
+    DB_DATABASE=yourdatabase {change this}
+    DB_USERNAME=yourusername {change this}
+    DB_PASSWORD=yourpassword {change this}
+6. run, composer install => install component
+7. run, composer update => update component
+8. run, php artisan key:generate
+9. run, php artisan migrate => db push
+10. run, php artisan db:seed  => dummy data
+11. run, php artisan storage:link => image store
+12. run, php artisan serve
+
+## Documentation
