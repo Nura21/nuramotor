@@ -2,12 +2,10 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\TransactionDetailController;
 use App\Http\Controllers\TypeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserDetailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
     //Users
     // Route::resource('users', UserController::class);
     // Route::resource('user-details', UserDetailController::class);
+
+    //Orders
+    Route::resource('orders', OrderController::class);
     
     //Products
     Route::resource('products', ProductController::class);
@@ -47,7 +48,6 @@ Route::middleware(['auth'])->group(function () {
     
     //Transactions
     Route::resource('transactions', TransactionController::class);
-    Route::resource('transaction-details', TransactionDetailController::class);
 });
 
 

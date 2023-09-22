@@ -49,7 +49,8 @@ class ProductSeeder extends Seeder
                 'name' => 'YZF-R',
                 'types' => [
                     'YZF-R1',
-                    'YZF-R6'
+                    'YZF-R6',
+                    'YZF-R2',
                 ],
                 'price' => 12000
             ],

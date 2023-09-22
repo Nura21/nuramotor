@@ -29,10 +29,16 @@
 </li> --}}
 
 <!-- Nav Item -  -->
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a class="nav-link" href="{{ route('transactions.index') }}">
         <i class="fas fa-fw fa-table"></i>
         <span>Transaction</span></a>
+</li> --}}
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('orders.index') }}">
+        <i class="fas fa-fw fa-table"></i>
+        <span>Order</span></a>
 </li>
 
 @endif

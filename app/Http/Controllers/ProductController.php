@@ -22,7 +22,14 @@ class ProductController extends Controller
             }
 
             return $next($request);
-        })->only(['index', 'create', 'store', 'edit', 'update', 'delete']);
+        })->only([
+            'index', 
+            'create', 
+            'store', 
+            'edit', 
+            'update', 
+            'delete'
+        ]);
     }
     /**
      * Display a listing of the resource.

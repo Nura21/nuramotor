@@ -3,7 +3,7 @@
 @section('title','Data Order')
 
 @section('action')
-        <a href="{{ route('transactions.create') }}" class="
+        <a href="{{ route('orders.create') }}" class="
             d-none
             d-sm-inline-block
             btn
@@ -25,39 +25,37 @@
         <!-- Project Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Transaksi</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Order</h6>
             </div>
             <div class="card-body">
                 <table class="table table-bordered" id="myTable">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Code</th>
-                            <th>Total Price</th>
-                            <th>Received</th>
-                            <th>Change Received</th>
-                            <th>Transaction Type</th>
+                            <th>Nama Product</th>
+                            <th>Type</th>
+                            <th>Qty</th>
+                            <th>Price</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($transactions ?? [] as $key => $item)
+                        @foreach ($orders ?? [] as $key => $item)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $item?->code ?? '-' }}</td>
-                                <td>{{ $item?->total_price ?? '-' }}</td>
-                                <td>{{ $item?->received ?? '-' }}</td>
-                                <td>{{ $item?->change_received ?? '-' }}</td>
-                                <td>{{ $item?->transaction_type ?? '-' }}</td>
+                                <td>{{ $item?->type?->product?->name ?? '-' }}</td>
+                                <td>{{ $item?->type?->name ?? '-' }}</td>
+                                <td>{{ $item?->qty ?? '-' }}</td>
+                                <td>{{ $item?->price ?? '-' }}</td>
                                 <td>
-                                    <form action="{{ route('transactions.destroy', $item->id) }}" method="post">
+                                    <form action="{{ route('orders.destroy', $item?->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <div class="btn-group">
-                                            <a type="button" href="{{ route('transactions.edit', $item->id) }}" class="btn-sm btn-shadow btn btn-info text-white">
+                                            <a type="button" href="{{ route('orders.edit', $item?->id) }}" class="btn-sm btn-shadow btn btn-info text-white">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a type="button" href="{{ route('transactions.show', $item->id) }}" class="btn-sm btn-shadow btn btn-info text-white">
+                                            <a type="button" href="{{ route('orders.show', $item?->id) }}" class="btn-sm btn-shadow btn btn-info text-white">
                                                 <i class="fa fa-info"></i>
                                             </a>
                                             <button type="submit" onclick="return confirm('Apakah anda ingin menghapus data ini?')" class="btn-sm btn-shadow btn btn-danger text-white">
@@ -67,7 +65,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>
