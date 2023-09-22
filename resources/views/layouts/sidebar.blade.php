@@ -11,8 +11,8 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    @if (auth()->user()->role == 'WARGA')
-        @include('layouts.partials.warga_sidebar')
+    @if (auth()->user()->role == 'PENGGUNA')
+        @include('layouts.partials.pengguna_sidebar')
     @else
         @include('layouts.partials.admin_sidebar')
     @endif

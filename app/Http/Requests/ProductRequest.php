@@ -2,16 +2,23 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserDetailRequest extends FormRequest
+class StoreProductRequest extends FormRequest
 {
+    protected $rules;
+
+    public function __construct()
+    {
+        $this->rules = new Product;    
+    }
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +28,6 @@ class UpdateUserDetailRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return $this->rules->rules;
     }
 }

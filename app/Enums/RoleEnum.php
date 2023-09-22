@@ -2,15 +2,21 @@
 
 namespace App\Enums;
 
-enum RoleEnum:string
-{
-	case ADMIN = 'ADMIN';
-	case PENGGUNA = 'PENGGUNA';
+// enum RoleEnum:string
+// {
+// 	case ADMIN = 'ADMIN';
+// 	case PENGGUNA = 'PENGGUNA';
 
-    public static function toArray(): array
-    {
-        return array_map(
-            fn (RoleEnum $roleEnum) => $roleEnum->value, RoleEnum::cases()
-        );
-    }
+//     public static function toArray(): array
+//     {
+//         return array_map(
+//             fn (RoleEnum $roleEnum) => $roleEnum->value, RoleEnum::cases()
+//         );
+//     }
+// }
+
+class RoleEnum
+{
+    const ADMIN = 'ADMIN';
+    const PENGGUNA = 'PENGGUNA';
 }

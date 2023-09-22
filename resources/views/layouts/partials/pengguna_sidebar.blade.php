@@ -6,7 +6,7 @@
 </li>
 
 
-@if (auth()->user()->warga->status == "ACTIVE")
+@if (auth()->user()->role == "PENGGUNA")
 <!-- Divider -->
 <hr class="sidebar-divider">
 <!-- Heading -->
@@ -16,23 +16,23 @@
 
 <!-- Nav Item -  -->
 <li class="nav-item">
-    <a class="nav-link" href="{{ route('umkm.index') }}">
+    <a class="nav-link" href="{{ route('users.index') }}">
         <i class="fas fa-fw fa-table"></i>
-        <span>UMKM</span></a>
+        <span>User</span></a>
 </li>
 
 <!-- Nav Item -  -->
 <li class="nav-item">
-    <a class="nav-link" href="{{ route('iuran.index') }}">
+    <a class="nav-link" href="{{ route('products.index') }}">
         <i class="fas fa-fw fa-table"></i>
-        <span>Iuran Warga</span></a>
+        <span>Product</span></a>
 </li>
 
 <!-- Nav Item -  -->
 <li class="nav-item">
-    <a class="nav-link" href="{{ route('pengeluaran.index') }}">
+    <a class="nav-link" href="{{ route('transactions.index') }}">
         <i class="fas fa-fw fa-table"></i>
-        <span>Pengeluaran</span></a>
+        <span>Transaction</span></a>
 </li>
 
 @endif

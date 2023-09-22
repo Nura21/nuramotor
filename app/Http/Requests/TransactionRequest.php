@@ -2,16 +2,23 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Transaction;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserDetailRequest extends FormRequest
+class StoreTransactionRequest extends FormRequest
 {
+    protected $rules;
+
+    public function __construct()
+    {
+        $this->rules = new Transaction;
+    }
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +28,6 @@ class StoreUserDetailRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return $this->rules->rules;
     }
 }

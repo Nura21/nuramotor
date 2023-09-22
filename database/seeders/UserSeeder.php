@@ -15,15 +15,15 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = RoleEnum::toArray();
+        $role = [RoleEnum::ADMIN, RoleEnum::PENGGUNA];
 
         foreach($role as $roleUser){
-            if($roleUser === RoleEnum::ADMIN->value){
-                $this->createUser('Admin', 'admin@gmail.com', 'admin123', $roleUser);
+            if($roleUser === RoleEnum::ADMIN){
+                $this->createUser('Admin', 'admin2@gmail.com', 'admin123', $roleUser);
             }
 
-            if($roleUser === RoleEnum::PENGGUNA->value){
-                $user = $this->createUser('pengguna', 'pengguna@gmail.com', 'pengguna123', $roleUser);
+            if($roleUser === RoleEnum::PENGGUNA){
+                $user = $this->createUser('pengguna', 'pengguna2@gmail.com', 'pengguna123', $roleUser);
 
                 $user->userDetail()->create([
                     'user_id' => $user->id,

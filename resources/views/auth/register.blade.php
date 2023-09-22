@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Perumahan Puri Adika PT. Delta Kahuripan - Register</title>
+    <title>Nuramotor- Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -46,31 +46,18 @@
                                     @endif
                             <form class="user" method="POST" action="{{ url('register') }}">
                                 @csrf
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" name="name" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="Full Name">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="identification_number" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Identification Number">
-                                    </div>
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control form-control-user" id="exampleLastName" 
+                                        placeholder="Fullname">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <select name="type" class="form-control" id="">
-                                            <option value="">Choose Type</option>
-                                            <option value="PEMILIK">Pemilik</option>
-                                            <option value="SEWA">Sewa</option>
-                                        </select>
+                                        <input type="number" name="ktp" class="form-control form-control-user" id="exampleFirstName"
+                                            placeholder="KTP">
                                     </div>
                                     <div class="col-sm-6">
-                                        <select name="block_id" class="form-control" id="">
-                                            <option value="">Choose Block Number</option>
-                                            @foreach ($block as $key => $item)
-                                                <option value="{{ $key }}">{{ $item }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="number" name="kk" class="form-control form-control-user" id="exampleLastName"
+                                            placeholder="KK">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -78,9 +65,8 @@
                                         placeholder="Email Address">
                                 </div>
                                 <div class="form-group">
-
-                                        <input type="password" name="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                    <input type="password" name="password" class="form-control form-control-user"
+                                        id="exampleInputPassword" placeholder="Password">
 
                                 </div>
                                 <input value="Register Account" type="submit" class="btn btn-primary btn-user btn-block">
