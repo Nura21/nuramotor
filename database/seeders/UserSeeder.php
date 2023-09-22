@@ -19,11 +19,11 @@ class UserSeeder extends Seeder
 
         foreach($role as $roleUser){
             if($roleUser === RoleEnum::ADMIN){
-                $this->createUser('Admin', 'admin2@gmail.com', 'admin123', $roleUser);
+                $this->createUser('Admin', 'admin@gmail.com', 'admin123', $roleUser);
             }
 
             if($roleUser === RoleEnum::PENGGUNA){
-                $user = $this->createUser('pengguna', 'pengguna2@gmail.com', 'pengguna123', $roleUser);
+                $user = $this->createUser('pengguna', 'pengguna@gmail.com', 'pengguna123', $roleUser);
 
                 $user->userDetail()->create([
                     'user_id' => $user->id,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ColorEnum;
+use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
@@ -11,6 +12,18 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();
+
+            if ($user && $user->role !== RoleEnum::ADMIN) {
+                return abort(403);
+            }
+
+            return $next($request);
+        })->only(['index', 'create', 'store', 'edit', 'update', 'delete']);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -39,13 +52,10 @@ class ProductController extends Controller
     {
         try{
             if($request?->hasFile('image')){
-                // create filename
                 $fileNameWithExt = $request?->file('image')?->getClientOriginalName();
                 $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
                 $extension = $request?->file('image')?->getClientOriginalExtension();
                 $fileNameSave = $fileName.'_'.time().'.'.$extension;
-    
-                // create path and store image
                 $path = $request?->file('image')?->storeAs('public/img', $fileNameSave);
             }
 
@@ -96,22 +106,18 @@ class ProductController extends Controller
     {
         try{
             if($request?->hasFile('image')){
-                // create filename
+                Storage::disk('public')->delete('public/img/' . $product->image);
                 $fileNameWithExt = $request?->file('image')?->getClientOriginalName();
                 $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
                 $extension = $request?->file('image')?->getClientOriginalExtension();
                 $fileNameSave = $fileName.'_'.time().'.'.$extension;
-    
-                // create path and store image
                 $path = $request?->file('image')?->storeAs('public/img', $fileNameSave);
             }
 
-            // Use the `delete` method to remove the image
-            Storage::disk('public')->delete('public/img/' . $product->image);
 
             $product->update([
                 'name' => $request->name,
-                'image' => $fileNameSave,
+                'image' => isset($fileNameSave) ? $fileNameSave : $product->image,
                 'description' => $request->description,
                 'price' => $request->price,
                 'status' => $request->status,
@@ -119,7 +125,7 @@ class ProductController extends Controller
             ]);
 
             $product->type()->update([
-                // 'product_id' => $product->id,
+                'product_id' => $product->id,
                 'name' => $request->type,
                 'color' => $request->color
             ]);

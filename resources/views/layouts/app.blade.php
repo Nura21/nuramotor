@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Perumahan Puri Adika PT. Delta Kahuripan</title>
+    <title>Nuramotor</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -20,6 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets') }}/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
     @stack('style')
@@ -166,6 +167,7 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('assets') }}/js/demo/chart-area-demo.js"></script>
     <script src="{{ asset('assets') }}/js/demo/chart-pie-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
@@ -178,7 +180,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
     @stack('scripts')
-
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable({
+                responsive: true,
+                dom: 'Bfrtip',
+                "columnDefs": [
+                    { "orderable": false, "targets": 0 }
+                ],
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print',
+                    // {
+                    //     extend: 'excelHtml5',
+                    //     title: fileName
+                    // },
+                    // {
+                    //     extend: 'pdfHtml5',
+                    //     title: fileName
+                    // }
+                ]
+            });
+        } );
+        </script>
 </body>
 
 </html>
