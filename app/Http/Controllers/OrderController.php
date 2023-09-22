@@ -67,23 +67,40 @@ class OrderController extends Controller
 
             return to_route('orders.index');
         }catch( \Exception $e){
-            dd($e);
             return to_route('orders.create');
         }
-
-
     }
 
     public function edit(Order $order)
     {
-        return view('order.edit', compact("order"));
+        $products = Product::all()->where('status', StatusEnum::READY->value);
+
+        return view('order.edit', compact("order", "products"));
     }
 
     public function update(OrderRequest $request, Order $order)
     {
-        $order->update($request->validate());
+        try{
+            $product = Product::findOrFail($request->product_id);
+            $checkQty = $product->qty >= $request->qty;
+            
+            if($checkQty === true){
+                $order->update([
+                    'product_id' => $request->product_id,
+                    'type_id' => $request->type_id,
+                    'qty' => $request->qty,
+                    'price' => $request->price
+                ]);
+            }
 
-        return to_route('orders.index');
+            if($checkQty === false){
+                return to_route('orders.edit', $order->id);
+            }
+
+            return to_route('orders.index');
+        }catch( \Exception $e){
+            return to_route('orders.edit', $order->id);
+        }
     }
 
     public function delete(Order $order)
