@@ -19,7 +19,8 @@
                 <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
             </div> --}}
             <div class="card-body">
-                <form class="" method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
+                <form class="" method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
                     <div class="form-row">
                         <div class="col-md-6">
@@ -37,6 +38,25 @@
                         <div class="col-md-6">
                             <div class="position-relative form-group">
                                 <label for="image" class="">Image :</label>
+
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <button type="button" class="btn" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                                <img src="{{ asset('storage/img/'.$product->image) }}" width="300" height="200" alt="image" srcset="">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <img src="{{ asset('storage/img/'.$product->image) }}" alt="image" srcset="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <input type="file" class="form-control" name="image" value="{{ $product->image }}">
                                 @if ($errors->has('image'))
                                     <span class="text-danger text-left">{{ $errors->first('image') }}</span>
@@ -102,7 +122,7 @@
                         <div class="col-md-6">
                             <div class="position-relative form-group">
                                 <label for="type" class="">Type :</label>
-                                <input type="text" class="form-control" name="type" value="{{ $product->type }}">
+                                <input type="text" class="form-control" name="type" value="{{ $product->type->name }}">
                                 @if ($errors->has('type'))
                                     <span class="text-danger text-left">{{ $errors->first('type') }}</span>
                                 @endif
@@ -117,23 +137,19 @@
                                 <select name="color" id="color" class="form-control">
                                     <option value="">Pilih : </option>
                                     @foreach($colors as $color)
-                                        <option value="{{ $color }}" {{ $product->color === $color ? 'selected' : ''}}>{{ $color }}</option>
+                                        <option value="{{ $color }}" {{ $product->type->color === $color ? 'selected' : ''}}>{{ $color }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('color'))
                                     <span class="text-danger text-left">{{ $errors->first('color') }}</span>
                                 @endif
-
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="mt-2 btn btn-primary">Tambah</button>
+                    <button type="submit" class="mt-2 btn btn-primary">Ubah</button>
                 </form>
             </div>
         </div>
-
-
     </div>
-
 </div>
 @endsection

@@ -12,11 +12,27 @@ class Product extends Model
 
     protected $table = 'products';
 
+    protected $fillable = [
+        'name',
+        'image',
+        'description',
+        'price',
+        'status',
+        'qty'
+    ];
+
     public $rules = [
         'name' => 'required',
         'description' => 'required',
         'price' => 'required',
         'status' => 'required',
         'qty' => 'required',
+        'type' => 'required',
+        'color' => 'required',
     ];
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class, 'id', 'product_id');
+    }
 }

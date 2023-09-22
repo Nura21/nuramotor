@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Enums\ColorEnum;
 use App\Enums\StatusEnum;
 use App\Http\Requests\ProductRequest;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::all()->where('status', StatusEnum::READY->value);
 
         return view('product.index', compact("products"));
     }
@@ -38,28 +38,34 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         try{
-            // $product = Product::create([
-            //     'name' => $request->name,
-            //     'image' => $request->email,
-            //     'description' => now(),
-            //     'price' =>
-            //     'status' => Hash::make($request->password),
-            //     'qty' => $role,
-            // ]);
-            
-            // $user->userDetail()->create([
-            //     'user_id' => $user->id,
-            //     'ktp' => $request->ktp,
-            //     'kk' => $request->kk,
-            // // ]);   
-            
-            // Auth::login($user);
+            if($request?->hasFile('image')){
+                // create filename
+                $fileNameWithExt = $request?->file('image')?->getClientOriginalName();
+                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                $extension = $request?->file('image')?->getClientOriginalExtension();
+                $fileNameSave = $fileName.'_'.time().'.'.$extension;
+    
+                // create path and store image
+                $path = $request?->file('image')?->storeAs('public/img', $fileNameSave);
+            }
+
+            $product = Product::create([
+                'name' => $request->name,
+                'image' => $fileNameSave,
+                'description' => $request->description,
+                'price' => $request->price,
+                'status' => $request->status,
+                'qty' => $request->qty,
+            ]);
+
+            Type::create([
+                'product_id' => $product->id,
+                'name' => $request->type,
+                'color' => $request->color
+            ]);
             
             return to_route('products.index');
         } catch (\Exception $e) {
-            // dd($e);
-			// DB::rollBack();
-
             return to_route('products.create');
 		}
     }
@@ -77,7 +83,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('product.edit', compact("product"));
+        $status = StatusEnum::toArray();
+        $colors = ColorEnum::toArray();
+
+        return view('product.edit', compact("product", "status", "colors"));
     }
 
     /**
@@ -85,9 +94,40 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->validate());
+        try{
+            if($request?->hasFile('image')){
+                // create filename
+                $fileNameWithExt = $request?->file('image')?->getClientOriginalName();
+                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                $extension = $request?->file('image')?->getClientOriginalExtension();
+                $fileNameSave = $fileName.'_'.time().'.'.$extension;
+    
+                // create path and store image
+                $path = $request?->file('image')?->storeAs('public/img', $fileNameSave);
+            }
 
-        return to_route('products.index');
+            // Use the `delete` method to remove the image
+            Storage::disk('public')->delete('public/img/' . $product->image);
+
+            $product->update([
+                'name' => $request->name,
+                'image' => $fileNameSave,
+                'description' => $request->description,
+                'price' => $request->price,
+                'status' => $request->status,
+                'qty' => $request->qty,
+            ]);
+
+            $product->type()->update([
+                // 'product_id' => $product->id,
+                'name' => $request->type,
+                'color' => $request->color
+            ]);
+
+            return to_route('products.index');
+        }catch( \Exception $e){
+            return to_route('products.edit');
+        }
     }
 
     /**
@@ -95,6 +135,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        Storage::disk('public')->delete('public/img/' . $product->image);
+
         $product->delete();
 
         return to_route('products.index');
