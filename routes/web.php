@@ -38,8 +38,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     //Users
-    Route::resource('users', UserController::class);
-    Route::resource('user-details', UserDetailController::class);
+    // Route::resource('users', UserController::class);
+    // Route::resource('user-details', UserDetailController::class);
     
     //Products
     Route::resource('products', ProductController::class);

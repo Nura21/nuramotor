@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Transaction;
+use App\Models\User;
+
 class DashboardController extends Controller
 {
     /**
@@ -9,6 +13,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashboard');
+        $products = count(Product::all());
+        $transactions = count(Transaction::all());
+        $users = count(User::all());
+
+        return view('dashboard.dashboard', compact("products", "transactions", "users"));
     }
 }

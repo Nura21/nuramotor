@@ -15,18 +15,18 @@
 </div> --}}
 
 <!-- Nav Item -  -->
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a class="nav-link" href="{{ route('users.index') }}">
         <i class="fas fa-fw fa-table"></i>
         <span>User</span></a>
-</li>
+</li> --}}
 
 <!-- Nav Item -  -->
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a class="nav-link" href="{{ route('products.index') }}">
         <i class="fas fa-fw fa-table"></i>
         <span>Product</span></a>
-</li>
+</li> --}}
 
 <!-- Nav Item -  -->
 <li class="nav-item">

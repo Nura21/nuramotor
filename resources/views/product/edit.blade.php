@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title','Ubah Data UMKM '.$umkm?->warga?->name)
+@section('title','Ubah Data Product')
 
 @section('action')
-<a href="{{ route('umkm.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">Back</a>
+<a href="{{ route('products.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">Back</a>
 @endsection
 
 @section('content')
@@ -19,14 +19,13 @@
                 <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
             </div> --}}
             <div class="card-body">
-                <form class="" method="POST" action="{{ route('umkm.update', $umkm?->id) }}" enctype="multipart/form-data">
-                    @method('PATCH')
+                <form class="" method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="name" class="">Nama UMKM :</label>
-                                <input type="text" class="form-control" name="name" value="{{ $umkm?->name }}">
+                                <label for="name" class="">Nama Product :</label>
+                                <input type="text" class="form-control" name="name" value="{{ $product->name ?? '-' }}">
                                 @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                                 @endif
@@ -37,8 +36,20 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="description" class="">Deskripsi UMKM :</label>
-                                <input type="text" class="form-control" name="description" value="{{ $umkm?->description }}">
+                                <label for="image" class="">Image :</label>
+                                <input type="file" class="form-control" name="image" value="{{ $product->image }}">
+                                @if ($errors->has('image'))
+                                    <span class="text-danger text-left">{{ $errors->first('image') }}</span>
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="description" class="">Deskripsi :</label>
+                                <input type="text" class="form-control" name="description" value="{{ $product->description }}">
                                 @if ($errors->has('description'))
                                     <span class="text-danger text-left">{{ $errors->first('description') }}</span>
                                 @endif
@@ -49,10 +60,10 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="phone" class="">No. Telepon :</label>
-                                <input type="number" class="form-control" name="phone" value="{{ $umkm?->phone }}">
-                                @if ($errors->has('phone'))
-                                    <span class="text-danger text-left">{{ $errors->first('phone') }}</span>
+                                <label for="price" class="">No. Telepon :</label>
+                                <input type="number" class="form-control" name="price" value="{{ $product->price }}">
+                                @if ($errors->has('price'))
+                                    <span class="text-danger text-left">{{ $errors->first('price') }}</span>
                                 @endif
 
                             </div>
@@ -61,18 +72,62 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="photo" class="">Foto UMKM :</label>
-                                @foreach ($umkm?->photo ?? [] as $key => $item)
-                                    <img src="{{ url('storage/images/'.$item) }}" width="100" height="100" alt="bukti_pembayaran" srcset="">
-                                @endforeach
-                                <input type="file" class="form-control" name="photo[]" value="{{ old('photo') }}" multiple>
-                                @if ($errors->has('photo'))
-                                    <span class="text-danger text-left">{{ $errors->first('photo') }}</span>
+                                <label for="status" class="">Status :</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="">Pilih : </option>
+                                    @foreach($status as $stat)
+                                        <option value="{{ $stat }}" {{ $product->status === $stat ? 'selected' : ''}}>{{ $stat }}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('status'))
+                                    <span class="text-danger text-left">{{ $product->status }}</span>
                                 @endif
+
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="mt-2 btn btn-primary">Ubah</button>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="qty" class="">Qty :</label>
+                                <input type="number" class="form-control" name="qty" value="{{ $product->qty }}">
+                                @if ($errors->has('qty'))
+                                    <span class="text-danger text-left">{{ $errors->first('qty') }}</span>
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="type" class="">Type :</label>
+                                <input type="text" class="form-control" name="type" value="{{ $product->type }}">
+                                @if ($errors->has('type'))
+                                    <span class="text-danger text-left">{{ $errors->first('type') }}</span>
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="color" class="">Color :</label>
+                                <select name="color" id="color" class="form-control">
+                                    <option value="">Pilih : </option>
+                                    @foreach($colors as $color)
+                                        <option value="{{ $color }}" {{ $product->color === $color ? 'selected' : ''}}>{{ $color }}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('color'))
+                                    <span class="text-danger text-left">{{ $errors->first('color') }}</span>
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="mt-2 btn btn-primary">Tambah</button>
                 </form>
             </div>
         </div>

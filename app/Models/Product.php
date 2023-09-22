@@ -16,6 +16,7 @@ class Product extends Model
         'name' => 'required',
         'description' => 'required',
         'price' => 'required',
+        'status' => 'required',
         'qty' => 'required',
     ];
 }
