@@ -30,6 +30,7 @@ Route::post('login', [LoginController::class, 'authenticate'])->name('login');
 Route::get('register', [LoginController::class, 'register']);
 Route::post('register', [LoginController::class, 'store'])->name('register');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('register-confirm/{token}', [LoginController::class, 'confirmEmail'])->name('email.confirm');
 
 Route::middleware(['auth'])->group(function () {
     //Dashboard
