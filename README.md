@@ -84,6 +84,16 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 9. run, php artisan migrate => db push
 10. run, php artisan db:seed  => dummy data
 11. run, php artisan storage:link => image store
-12. run, php artisan serve
+12. Configure email and redis on app.php
+    'maintenance' => [
+        'driver' => 'file',
+        'store'  => 'redis',
+    ],
 
-## Documentation
+    'mail_from_address' => env('MAIL_FROM_ADDRESS'),
+
+    don't forget to start redis on local
+
+    then run, php artisan queue:work
+
+12. run on second terminal, php artisan serve

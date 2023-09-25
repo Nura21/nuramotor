@@ -24,42 +24,36 @@ class ConfirmationEmail extends Mailable
 
     public function build()
     {
-       return $this->from('m.irfansyafalah@gmail.com')
-                   ->view('emails.confirmation')
-                   ->with(
-                    [
-                        'nama' => 'Diki Alfarabi Hadi',
-                        'website' => 'www.malasngoding.com',
-                    ]);
+        return $this->from(config('app.mail_from_address'), 'Confirmation');
     }
 
-    // /**
-    //  * Get the message envelope.
-    //  */
-    // public function envelope(): Envelope
-    // {
-    //     return new Envelope(
-    //         subject: 'Confirmation Email :'.$this->user->name,
-    //     );
-    // }
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            subject: 'Confirmation Email :'.$this->user->name,
+        );
+    }
 
-    // /**
-    //  * Get the message content definition.
-    //  */
-    // public function content(): Content
-    // {
-    //     return new Content(
-    //         view: 'emails.confirmation',
-    //     );
-    // }
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {
+        return new Content(
+            view: 'emails.confirmation',
+        );
+    }
 
-    // /**
-    //  * Get the attachments for the message.
-    //  *
-    //  * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-    //  */
-    // public function attachments(): array
-    // {
-    //     return [];
-    // }
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
+    public function attachments(): array
+    {
+        return [];
+    }
 }

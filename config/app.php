@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
+    'mail_from_address' => env('MAIL_FROM_ADDRESS'),
 
     /*
     |--------------------------------------------------------------------------
